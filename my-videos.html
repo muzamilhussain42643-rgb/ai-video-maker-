@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Videos - AI Video Maker</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .videos-page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 50px 20px;
+        }
+
+        .videos-page h1 {
+            color: #f5c542;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .video-card {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .video-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .video-card h3 {
+            color: #f5c542;
+            margin-bottom: 10px;
+        }
+
+        .video-card p {
+            color: #999;
+            line-height: 1.5;
+        }
+
+        .empty {
+            background: #111;
+            border: 1px dashed #444;
+            border-radius: 15px;
+            padding: 50px 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        @media (max-width: 800px) {
+            .video-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .video-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">🎬 AI Video Maker</div>
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="create-video.html">Create Video</a>
+    </nav>
+
+</header>
+
+<main class="videos-page">
+
+    <h1>📁 My Videos</h1>
+
+    <p class="subtitle">
+        Your generated AI videos will appear here.
+    </p>
+
+    <div id="videoList"></div>
+
+</main>
+
+<footer>
+    <p>© 2026 AI Video Maker</p>
+</footer>
+
+<script>
+
+if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+}
+
+const script = localStorage.getItem("videoScript");
+
+const videoList = document.getElementById("videoList");
+
+if (script) {
+
+    videoList.innerHTML = `
+        <div class="video-list">
+
+            <div class="video-card">
+
+                <div class="video-icon">🎬</div>
+
+                <h3>Video Project</h3>
+
+                <p>${script}</p>
+
+                <br>
+
+                <small style="color:#f5c542;">
+                    ⏱️ 20 Seconds
+                </small>
+
+            </div>
+
+        </div>
+    `;
+
+} else {
+
+    videoList.innerHTML = `
+        <div class="empty">
+            <div style="font-size:50px;">🎬</div>
+
+            <h3>No Videos Yet</h3>
+
+            <p>Create your first AI video.</p>
+
+            <br>
+
+            <a href="create-video.html" class="btn">
+                ✨ Create Video
+            </a>
+        </div>
+    `;
+
+}
+
+</script>
+
+</body>
+</html>
