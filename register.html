@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - AI Video Maker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">🎬 AI Video Maker</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+    </nav>
+</header>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>Create Account</h1>
+
+        <p>Join AI Video Maker and create amazing videos.</p>
+
+        <form id="registerForm" style="max-width:420px;margin:auto;text-align:left;">
+
+            <label>Full Name</label>
+            <input id="name" type="text" required
+                style="width:100%;padding:14px;margin:8px 0 18px;border-radius:8px;border:1px solid #333;background:#111;color:white;">
+
+            <label>Email</label>
+            <input id="email" type="email" required
+                style="width:100%;padding:14px;margin:8px 0 18px;border-radius:8px;border:1px solid #333;background:#111;color:white;">
+
+            <label>Password</label>
+            <input id="password" type="password" minlength="6" required
+                style="width:100%;padding:14px;margin:8px 0 18px;border-radius:8px;border:1px solid #333;background:#111;color:white;">
+
+            <button type="submit" class="btn" style="width:100%;border:0;cursor:pointer;">
+                🚀 Create Account
+            </button>
+
+            <p id="message" style="margin-top:20px;text-align:center;"></p>
+
+        </form>
+
+    </div>
+
+</section>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    localStorage.setItem("userName", name);
+    localStorage.setItem("userEmail", email);
+    localStorage.setItem("userPassword", password);
+
+    document.getElementById("message").textContent =
+        "Account created successfully!";
+
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 1000);
+});
+</script>
+
+</body>
+</html>
