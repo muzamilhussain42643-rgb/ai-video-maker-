@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AI Video Maker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">🎬 AI Video Maker</div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="register.html">Register</a>
+    </nav>
+</header>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>Welcome Back</h1>
+
+        <p>Login to your AI Video Maker account.</p>
+
+        <form id="loginForm"
+              style="max-width:420px;margin:auto;text-align:left;">
+
+            <label>Email</label>
+
+            <input
+                id="email"
+                type="email"
+                required
+                style="width:100%;padding:14px;margin:8px 0 18px;
+                border-radius:8px;border:1px solid #333;
+                background:#111;color:white;"
+            >
+
+            <label>Password</label>
+
+            <input
+                id="password"
+                type="password"
+                required
+                style="width:100%;padding:14px;margin:8px 0 18px;
+                border-radius:8px;border:1px solid #333;
+                background:#111;color:white;"
+            >
+
+            <button
+                type="submit"
+                class="btn"
+                style="width:100%;border:0;cursor:pointer;">
+                🔐 Login
+            </button>
+
+            <p id="message"
+               style="margin-top:20px;text-align:center;">
+            </p>
+
+        </form>
+
+    </div>
+
+</section>
+
+<script>
+
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const savedEmail = localStorage.getItem("userEmail");
+    const savedPassword = localStorage.getItem("userPassword");
+
+    if (email === savedEmail && password === savedPassword) {
+
+        localStorage.setItem("loggedIn", "true");
+
+        document.getElementById("message").textContent =
+            "Login successful!";
+
+        setTimeout(() => {
+            window.location.href = "dashboard.html";
+        }, 800);
+
+    } else {
+
+        document.getElementById("message").textContent =
+            "Email or password is incorrect.";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
