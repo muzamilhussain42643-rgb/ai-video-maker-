@@ -1,78 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account - AI Video Maker</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account - AI Video Maker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="navbar">
-    <div class="logo">🎬 AI Video Maker</div>
+  <div class="auth-container">
+    <div class="auth-box">
 
-    <nav>
-        <a href="index.html">Home</a>
+      <h1>🎬 AI Video Maker</h1>
+      <h2>Create Account</h2>
+
+      <form id="registerForm">
+
+        <input
+          type="text"
+          id="name"
+          placeholder="Full Name"
+          required
+        >
+
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          required
+        >
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Password (minimum 6 characters)"
+          minlength="6"
+          required
+        >
+
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirm Password"
+          minlength="6"
+          required
+        >
+
+        <button type="submit">Create Account</button>
+
+      </form>
+
+      <p id="message"></p>
+
+      <p>
+        Already have an account?
         <a href="login.html">Login</a>
-    </nav>
-</header>
-
-<section class="hero">
-
-    <div class="hero-content">
-
-        <h1>Create Account</h1>
-
-        <p>Join AI Video Maker and create amazing videos.</p>
-
-        <form id="registerForm" style="max-width:420px;margin:auto;text-align:left;">
-
-            <label>Full Name</label>
-            <input id="name" type="text" required
-                style="width:100%;padding:14px;margin:8px 0 18px;border-radius:8px;border:1px solid #333;background:#111;color:white;">
-
-            <label>Email</label>
-            <input id="email" type="email" required
-                style="width:100%;padding:14px;margin:8px 0 18px;border-radius:8px;border:1px solid #333;background:#111;color:white;">
-
-            <label>Password</label>
-            <input id="password" type="password" minlength="6" required
-                style="width:100%;padding:14px;margin:8px 0 18px;border-radius:8px;border:1px solid #333;background:#111;color:white;">
-
-            <button type="submit" class="btn" style="width:100%;border:0;cursor:pointer;">
-                🚀 Create Account
-            </button>
-
-            <p id="message" style="margin-top:20px;text-align:center;"></p>
-
-        </form>
+      </p>
 
     </div>
+  </div>
 
-</section>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
 
-<script>
-document.getElementById("registerForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+  <script>
+    const form = document.getElementById("registerForm");
+    const message = document.getElementById("message");
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
 
-    localStorage.setItem("userName", name);
-    localStorage.setItem("userEmail", email);
-    localStorage.setItem("userPassword", password);
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
 
-    document.getElementById("message").textContent =
-        "Account created successfully!";
+      if (password !== confirmPassword) {
+        message.textContent = "Passwords do not match.";
+        return;
+      }
 
-    setTimeout(() => {
-        window.location.href = "login.html";
-    }, 1000);
-});
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
+      message.textContent = "Creating account...";
+
+      const { data, error } =
+        await window.supabaseClient.auth.signUp({
+          email: email,
+          password: password,
+          options: {
+            data: {
+              full_name: name
+            }
+          }
+        });
+
+      if (error) {
+        message.textContent = error.message;
+        return;
+      }
+
+      message.textContent =
+        "Account created successfully! Check your email if confirmation is required.";
+
+      form.reset();
+    });
+  </script>
+
 </body>
 </html>
