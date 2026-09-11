@@ -1,175 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create AI Video</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        .creator {
-            max-width: 900px;
-            margin: auto;
-            padding: 45px 20px;
-        }
+<title>Create AI Video</title>
 
-        .creator h1 {
-            color: #f5c542;
-            margin-bottom: 10px;
-        }
+<link rel="stylesheet" href="style.css">
 
-        .creator-subtitle {
-            color: #aaa;
-            margin-bottom: 30px;
-        }
+<style>
+.creator-page {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px;
+}
 
-        .video-box {
-            background: #111;
-            border: 1px solid #292929;
-            border-radius: 16px;
-            padding: 25px;
-        }
+.creator-page h1 {
+    color: #f5c542;
+    font-size: 38px;
+    margin-bottom: 8px;
+}
 
-        .field {
-            margin-bottom: 22px;
-        }
+.subtitle {
+    color: #aaa;
+    margin-bottom: 30px;
+}
 
-        .field label {
-            display: block;
-            margin-bottom: 9px;
-            color: #ddd;
-            font-weight: bold;
-        }
+.type-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
 
-        .field textarea,
-        .field select {
-            width: 100%;
-            padding: 14px;
-            border-radius: 9px;
-            border: 1px solid #333;
-            background: #080808;
-            color: white;
-            font-size: 15px;
-        }
+.type-card {
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 14px;
+    padding: 20px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: .3s;
+}
 
-        .field textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
+.type-card:hover {
+    border-color: #f5c542;
+    transform: translateY(-4px);
+}
 
-        .duration {
-            padding: 14px;
-            border: 1px solid #f5c542;
-            border-radius: 9px;
-            color: #f5c542;
-            background: #151208;
-        }
+.type-card.selected {
+    border: 2px solid #f5c542;
+    background: #191608;
+}
 
-        .generate {
-            width: 100%;
-            padding: 16px;
-            border: 0;
-            border-radius: 10px;
-            background: #f5c542;
-            color: #080808;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.type-icon {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
 
-        .generate:hover {
-            transform: translateY(-2px);
-        }
+.type-card h3 {
+    color: #f5c542;
+    font-size: 16px;
+}
 
-        #status {
-            text-align: center;
-            margin-top: 20px;
-            color: #f5c542;
-        }
-    </style>
+.editor {
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 18px;
+    padding: 25px;
+}
+
+.field {
+    margin-bottom: 22px;
+}
+
+.field label {
+    display: block;
+    color: #ddd;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+textarea,
+select {
+    width: 100%;
+    padding: 14px;
+    background: #080808;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 9px;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.duration-box {
+    padding: 14px;
+    background: #181407;
+    border: 1px solid #f5c542;
+    color: #f5c542;
+    border-radius: 9px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 17px;
+    background: #f5c542;
+    color: #080808;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.generate-btn:hover {
+    transform: translateY(-2px);
+}
+
+#status {
+    text-align: center;
+    color: #f5c542;
+    margin-top: 20px;
+}
+
+@media(max-width:800px) {
+    .type-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .options {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:500px) {
+    .type-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header class="navbar">
 
-    <div class="logo">🎬 AI Video Maker</div>
+<div class="logo">🎬 AI Video Maker</div>
 
-    <nav>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="my-videos.html">My Videos</a>
-    </nav>
+<nav>
+<a href="dashboard.html">Dashboard</a>
+<a href="my-videos.html">My Videos</a>
+<a href="profile.html">Profile</a>
+</nav>
 
 </header>
 
-<main class="creator">
+<main class="creator-page">
 
-    <h1>🎬 Create AI Video</h1>
+<h1>🎬 Create AI Video</h1>
 
-    <p class="creator-subtitle">
-        Create your short video project with script, voice and music.
-    </p>
+<p class="subtitle">
+Choose a video style and create your own 20-second video.
+</p>
 
-    <div class="video-box">
+<h2 style="margin-bottom:20px;">Choose Video Type</h2>
 
-        <div class="field">
-            <label>📝 Video Script</label>
+<div class="type-grid">
 
-            <textarea
-                id="script"
-                placeholder="Write your video script here..."
-                required></textarea>
-        </div>
+<div class="type-card" onclick="selectType(this,'3D Cartoon Story')">
+<div class="type-icon">🎨</div>
+<h3>3D Cartoon</h3>
+</div>
 
-        <div class="field">
-            <label>⏱️ Video Duration</label>
+<div class="type-card" onclick="selectType(this,'Motivational')">
+<div class="type-icon">💪</div>
+<h3>Motivational</h3>
+</div>
 
-            <div class="duration">
-                20 Seconds
-            </div>
-        </div>
+<div class="type-card" onclick="selectType(this,'Funny Comedy')">
+<div class="type-icon">😂</div>
+<h3>Funny Comedy</h3>
+</div>
 
-        <div class="field">
-            <label>🎙️ Voice</label>
+<div class="type-card" onclick="selectType(this,'Islamic')">
+<div class="type-icon">🕌</div>
+<h3>Islamic</h3>
+</div>
 
-            <select id="voice">
-                <option value="female">Female Voice</option>
-                <option value="male">Male Voice</option>
-            </select>
-        </div>
+<div class="type-card" onclick="selectType(this,'Educational')">
+<div class="type-icon">📚</div>
+<h3>Educational</h3>
+</div>
 
-        <div class="field">
-            <label>🌐 Language</label>
+<div class="type-card" onclick="selectType(this,'Cooking')">
+<div class="type-icon">👨‍🍳</div>
+<h3>Cooking</h3>
+</div>
 
-            <select id="language">
-                <option value="english">English</option>
-                <option value="urdu">Urdu</option>
-            </select>
-        </div>
+<div class="type-card" onclick="selectType(this,'Business Advertisement')">
+<div class="type-icon">💼</div>
+<h3>Business Ad</h3>
+</div>
 
-        <div class="field">
-            <label>🎵 Background Music</label>
+<div class="type-card" onclick="selectType(this,'TikTok/Reels')">
+<div class="type-icon">📱</div>
+<h3>TikTok/Reels</h3>
+</div>
 
-            <select id="music">
-                <option value="none">No Music</option>
-                <option value="cinematic">Cinematic</option>
-                <option value="motivational">Motivational</option>
-                <option value="corporate">Corporate</option>
-            </select>
-        </div>
+<div class="type-card" onclick="selectType(this,'News')">
+<div class="type-icon">📰</div>
+<h3>News</h3>
+</div>
 
-        <button class="generate" onclick="generateVideo()">
-            ✨ Generate 20 Second Video
-        </button>
+<div class="type-card" onclick="selectType(this,'Fantasy Story')">
+<div class="type-icon">🧙</div>
+<h3>Fantasy</h3>
+</div>
 
-        <p id="status"></p>
+<div class="type-card" onclick="selectType(this,'Car Video')">
+<div class="type-icon">🚗</div>
+<h3>Car Video</h3>
+</div>
 
-    </div>
+<div class="type-card" onclick="selectType(this,'Animal Story')">
+<div class="type-icon">🐱</div>
+<h3>Animal Story</h3>
+</div>
+
+<div class="type-card" onclick="selectType(this,'Emotional Story')">
+<div class="type-icon">❤️</div>
+<h3>Emotional</h3>
+</div>
+
+<div class="type-card" onclick="selectType(this,'Kids Cartoon')">
+<div class="type-icon">👦</div>
+<h3>Kids Cartoon</h3>
+</div>
+
+<div class="type-card" onclick="selectType(this,'Gaming')">
+<div class="type-icon">🎮</div>
+<h3>Gaming</h3>
+</div>
+
+<div class="type-card" onclick="selectType(this,'Travel')">
+<div class="type-icon">✈️</div>
+<h3>Travel</h3>
+</div>
+
+</div>
+
+<div class="editor">
+
+<div class="field">
+
+<label>🎯 Selected Video Type</label>
+
+<select id="videoType">
+<option value="">Select a type above</option>
+<option>3D Cartoon Story</option>
+<option>Motivational</option>
+<option>Funny Comedy</option>
+<option>Islamic</option>
+<option>Educational</option>
+<option>Cooking</option>
+<option>Business Advertisement</option>
+<option>TikTok/Reels</option>
+<option>News</option>
+<option>Fantasy Story</option>
+<option>Car Video</option>
+<option>Animal Story</option>
+<option>Emotional Story</option>
+<option>Kids Cartoon</option>
+<option>Gaming</option>
+<option>Travel</option>
+</select>
+
+</div>
+
+<div class="field">
+
+<label>📝 Video Script</label>
+
+<textarea id="script"
+placeholder="Example: A young man enters a beautiful cafe and talks about his new business..."></textarea>
+
+</div>
+
+<div class="options">
+
+<div class="field">
+
+<label>⏱️ Duration</label>
+
+<div class="duration-box">
+20 Seconds
+</div>
+
+</div>
+
+<div class="field">
+
+<label>🎙️ Voice</label>
+
+<select id="voice">
+<option>Male Voice</option>
+<option>Female Voice</option>
+</select>
+
+</div>
+
+<div class="field">
+
+<label>🌐 Language</label>
+
+<select id="language">
+<option>English</option>
+<option>Urdu</option>
+<option>Punjabi</option>
+</select>
+
+</div>
+
+</div>
+
+<div class="field">
+
+<label>🎵 Background Music</label>
+
+<select id="music">
+<option>No Music</option>
+<option>Cinematic</option>
+<option>Motivational</option>
+<option>Funny</option>
+<option>Relaxing</option>
+<option>Business</option>
+</select>
+
+</div>
+
+<button class="generate-btn" onclick="generateVideo()">
+✨ Generate 20 Second AI Video
+</button>
+
+<p id="status"></p>
+
+</div>
 
 </main>
 
 <footer>
-    <p>© 2026 AI Video Maker</p>
+<p>© 2026 AI Video Maker</p>
 </footer>
 
 <script>
@@ -178,9 +370,30 @@ if (localStorage.getItem("loggedIn") !== "true") {
     window.location.href = "login.html";
 }
 
+function selectType(card, type) {
+
+    document.querySelectorAll(".type-card").forEach(function(item) {
+        item.classList.remove("selected");
+    });
+
+    card.classList.add("selected");
+
+    document.getElementById("videoType").value = type;
+}
+
 function generateVideo() {
 
+    const type = document.getElementById("videoType").value;
     const script = document.getElementById("script").value.trim();
+    const voice = document.getElementById("voice").value;
+    const language = document.getElementById("language").value;
+    const music = document.getElementById("music").value;
+
+    if (!type) {
+        document.getElementById("status").textContent =
+            "⚠️ Please select a video type.";
+        return;
+    }
 
     if (!script) {
         document.getElementById("status").textContent =
@@ -188,16 +401,29 @@ function generateVideo() {
         return;
     }
 
-    /*
-       AI VIDEO API will be connected here later.
-       GitHub Pages alone cannot generate AI videos.
-    */
+    const project = {
+        type: type,
+        script: script,
+        duration: "20 Seconds",
+        voice: voice,
+        language: language,
+        music: music,
+        created: new Date().toLocaleString()
+    };
+
+    localStorage.setItem(
+        "latestVideoProject",
+        JSON.stringify(project)
+    );
 
     localStorage.setItem("videoScript", script);
 
     document.getElementById("status").textContent =
-        "✅ Video project created. AI generation will be connected in the next step.";
+        "✅ Video project is ready!";
 
+    setTimeout(function() {
+        window.location.href = "my-videos.html";
+    }, 1000);
 }
 
 </script>
