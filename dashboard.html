@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Video Maker</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .dashboard {
+            padding: 50px 7%;
+        }
+
+        .welcome {
+            margin-bottom: 35px;
+        }
+
+        .welcome h1 {
+            font-size: 38px;
+            color: #f5c542;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #aaa;
+        }
+
+        .dashboard-grid {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .dash-card {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 16px;
+            padding: 28px;
+            text-decoration: none;
+            color: white;
+            transition: .3s;
+        }
+
+        .dash-card:hover {
+            transform: translateY(-5px);
+            border-color: #f5c542;
+        }
+
+        .dash-icon {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .dash-card h3 {
+            color: #f5c542;
+            margin-bottom: 8px;
+        }
+
+        .dash-card p {
+            color: #999;
+            line-height: 1.5;
+        }
+
+        .logout {
+            cursor: pointer;
+            border: 1px solid #f5c542;
+            background: transparent;
+            color: #f5c542;
+        }
+
+        @media (max-width: 800px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">🎬 AI Video Maker</div>
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <button class="logout" onclick="logout()">Logout</button>
+    </nav>
+
+</header>
+
+<main class="dashboard">
+
+    <div class="welcome">
+        <h1>Welcome, <span id="userName">User</span> 👋</h1>
+        <p>Create your AI videos from one simple dashboard.</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <a href="create-video.html" class="dash-card">
+            <div class="dash-icon">🎬</div>
+            <h3>Create AI Video</h3>
+            <p>Create a short AI video with script, scenes and voice.</p>
+        </a>
+
+        <a href="create-video.html" class="dash-card">
+            <div class="dash-icon">⏱️</div>
+            <h3>20 Second Video</h3>
+            <p>Create videos designed for short-form content.</p>
+        </a>
+
+        <a href="create-video.html" class="dash-card">
+            <div class="dash-icon">🎙️</div>
+            <h3>AI Voice</h3>
+            <p>Add voice narration to your video.</p>
+        </a>
+
+        <a href="create-video.html" class="dash-card">
+            <div class="dash-icon">🎵</div>
+            <h3>Background Music</h3>
+            <p>Add music to your video project.</p>
+        </a>
+
+        <a href="my-videos.html" class="dash-card">
+            <div class="dash-icon">📁</div>
+            <h3>My Videos</h3>
+            <p>View your created video projects.</p>
+        </a>
+
+        <a href="profile.html" class="dash-card">
+            <div class="dash-icon">👤</div>
+            <h3>My Profile</h3>
+            <p>Manage your account information.</p>
+        </a>
+
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 AI Video Maker</p>
+</footer>
+
+<script>
+
+const loggedIn = localStorage.getItem("loggedIn");
+
+if (loggedIn !== "true") {
+    window.location.href = "login.html";
+}
+
+const name = localStorage.getItem("userName");
+
+if (name) {
+    document.getElementById("userName").textContent = name;
+}
+
+function logout() {
+    localStorage.removeItem("loggedIn");
+    window.location.href = "login.html";
+}
+
+</script>
+
+</body>
+</html>
