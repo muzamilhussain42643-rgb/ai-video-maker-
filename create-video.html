@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create AI Video</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .creator {
+            max-width: 900px;
+            margin: auto;
+            padding: 45px 20px;
+        }
+
+        .creator h1 {
+            color: #f5c542;
+            margin-bottom: 10px;
+        }
+
+        .creator-subtitle {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .video-box {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .field {
+            margin-bottom: 22px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 9px;
+            color: #ddd;
+            font-weight: bold;
+        }
+
+        .field textarea,
+        .field select {
+            width: 100%;
+            padding: 14px;
+            border-radius: 9px;
+            border: 1px solid #333;
+            background: #080808;
+            color: white;
+            font-size: 15px;
+        }
+
+        .field textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .duration {
+            padding: 14px;
+            border: 1px solid #f5c542;
+            border-radius: 9px;
+            color: #f5c542;
+            background: #151208;
+        }
+
+        .generate {
+            width: 100%;
+            padding: 16px;
+            border: 0;
+            border-radius: 10px;
+            background: #f5c542;
+            color: #080808;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .generate:hover {
+            transform: translateY(-2px);
+        }
+
+        #status {
+            text-align: center;
+            margin-top: 20px;
+            color: #f5c542;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">🎬 AI Video Maker</div>
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="my-videos.html">My Videos</a>
+    </nav>
+
+</header>
+
+<main class="creator">
+
+    <h1>🎬 Create AI Video</h1>
+
+    <p class="creator-subtitle">
+        Create your short video project with script, voice and music.
+    </p>
+
+    <div class="video-box">
+
+        <div class="field">
+            <label>📝 Video Script</label>
+
+            <textarea
+                id="script"
+                placeholder="Write your video script here..."
+                required></textarea>
+        </div>
+
+        <div class="field">
+            <label>⏱️ Video Duration</label>
+
+            <div class="duration">
+                20 Seconds
+            </div>
+        </div>
+
+        <div class="field">
+            <label>🎙️ Voice</label>
+
+            <select id="voice">
+                <option value="female">Female Voice</option>
+                <option value="male">Male Voice</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>🌐 Language</label>
+
+            <select id="language">
+                <option value="english">English</option>
+                <option value="urdu">Urdu</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>🎵 Background Music</label>
+
+            <select id="music">
+                <option value="none">No Music</option>
+                <option value="cinematic">Cinematic</option>
+                <option value="motivational">Motivational</option>
+                <option value="corporate">Corporate</option>
+            </select>
+        </div>
+
+        <button class="generate" onclick="generateVideo()">
+            ✨ Generate 20 Second Video
+        </button>
+
+        <p id="status"></p>
+
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 AI Video Maker</p>
+</footer>
+
+<script>
+
+if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+}
+
+function generateVideo() {
+
+    const script = document.getElementById("script").value.trim();
+
+    if (!script) {
+        document.getElementById("status").textContent =
+            "⚠️ Please enter your video script.";
+        return;
+    }
+
+    /*
+       AI VIDEO API will be connected here later.
+       GitHub Pages alone cannot generate AI videos.
+    */
+
+    localStorage.setItem("videoScript", script);
+
+    document.getElementById("status").textContent =
+        "✅ Video project created. AI generation will be connected in the next step.";
+
+}
+
+</script>
+
+</body>
+</html>
