@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile - AI Video Maker</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .profile-page {
+            max-width: 600px;
+            margin: auto;
+            padding: 60px 20px;
+        }
+
+        .profile-box {
+            background: #111;
+            border: 1px solid #292929;
+            border-radius: 18px;
+            padding: 35px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5c542;
+            color: #080808;
+            font-size: 40px;
+        }
+
+        .profile-box h1 {
+            color: #f5c542;
+            margin-bottom: 25px;
+        }
+
+        .info {
+            background: #080808;
+            border: 1px solid #292929;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 12px 0;
+            text-align: left;
+        }
+
+        .info strong {
+            color: #f5c542;
+        }
+
+        .logout-btn {
+            margin-top: 25px;
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #f5c542;
+            border-radius: 10px;
+            background: transparent;
+            color: #f5c542;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">🎬 AI Video Maker</div>
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="create-video.html">Create Video</a>
+        <a href="my-videos.html">My Videos</a>
+    </nav>
+
+</header>
+
+<main class="profile-page">
+
+    <div class="profile-box">
+
+        <div class="avatar">👤</div>
+
+        <h1>My Profile</h1>
+
+        <div class="info">
+            <strong>Full Name</strong>
+            <br>
+            <span id="name">User</span>
+        </div>
+
+        <div class="info">
+            <strong>Email</strong>
+            <br>
+            <span id="email">Not available</span>
+        </div>
+
+        <button class="logout-btn" onclick="logout()">
+            🚪 Logout
+        </button>
+
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 AI Video Maker</p>
+</footer>
+
+<script>
+
+if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+}
+
+document.getElementById("name").textContent =
+    localStorage.getItem("userName") || "User";
+
+document.getElementById("email").textContent =
+    localStorage.getItem("userEmail") || "Not available";
+
+function logout() {
+    localStorage.removeItem("loggedIn");
+    window.location.href = "login.html";
+}
+
+</script>
+
+</body>
+</html>
