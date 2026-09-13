@@ -1,110 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Account - AI Video Maker</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
 
-<body>
+<script>
+const form = document.getElementById("registerForm");
+const message = document.getElementById("message");
 
-  <div class="auth-container">
-    <div class="auth-box">
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
 
-      <h1>🎬 AI Video Maker</h1>
-      <h2>Create Account</h2>
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const confirmPassword =
+    document.getElementById("confirmPassword").value;
 
-      <form id="registerForm">
+  if (password !== confirmPassword) {
+    message.textContent = "Passwords do not match.";
+    return;
+  }
 
-        <input
-          type="text"
-          id="name"
-          placeholder="Full Name"
-          required
-        >
+  if (password.length < 6) {
+    message.textContent = "Password must be at least 6 characters.";
+    return;
+  }
 
-        <input
-          type="email"
-          id="email"
-          placeholder="Email"
-          required
-        >
+  if (!window.supabaseClient) {
+    message.textContent =
+      "Supabase connection failed. Check config.js.";
+    return;
+  }
 
-        <input
-          type="password"
-          id="password"
-          placeholder="Password (minimum 6 characters)"
-          minlength="6"
-          required
-        >
+  message.textContent = "Creating account...";
 
-        <input
-          type="password"
-          id="confirmPassword"
-          placeholder="Confirm Password"
-          minlength="6"
-          required
-        >
-
-        <button type="submit">Create Account</button>
-
-      </form>
-
-      <p id="message"></p>
-
-      <p>
-        Already have an account?
-        <a href="login.html">Login</a>
-      </p>
-
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
-
-  <script>
-    const form = document.getElementById("registerForm");
-    const message = document.getElementById("message");
-
-    form.addEventListener("submit", async function(e) {
-      e.preventDefault();
-
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
-
-      if (password !== confirmPassword) {
-        message.textContent = "Passwords do not match.";
-        return;
+  try {
+    const result = await window.supabaseClient.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: name
+        }
       }
-
-      message.textContent = "Creating account...";
-
-      const { data, error } =
-        await window.supabaseClient.auth.signUp({
-          email: email,
-          password: password,
-          options: {
-            data: {
-              full_name: name
-            }
-          }
-        });
-
-      if (error) {
-        message.textContent = error.message;
-        return;
-      }
-
-      message.textContent =
-        "Account created successfully! Check your email if confirmation is required.";
-
-      form.reset();
     });
-  </script>
 
-</body>
-</html>
+    if (result.error) {
+      message.textContent = "Error: " + result.error.message;
+      return;
+    }
+
+    message.textContent =
+      "✅ Account created! Check your email for confirmation.";
+
+    form.reset();
+
+  } catch (error) {
+    message.textContent =
+      "Connection error: " + error.message;
+  }
+});
+</script>
